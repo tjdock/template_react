@@ -1,0 +1,6 @@
+>npm outdated
+>npm update
+或者
+>npm update react
+
+#路由可用HashRouter替换BrowserRouter
