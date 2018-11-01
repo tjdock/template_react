@@ -54,7 +54,7 @@ class AddCar extends Component {
             </List>
           </Grid>
           <Grid item xs={2}>
-            <Typography gutterBottom variant="h7" component="h5">阿斯顿·马丁-DB11</Typography>
+            <Typography gutterBottom variant="h6" component="h5">阿斯顿·马丁-DB11</Typography>
             <TextField placeholder='车架号' margin='normal'/>
             <TextField placeholder='车牌号' margin='normal'/>
             <Button variant='contained' color='primary'>添加</Button>

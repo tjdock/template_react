@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+
+import {connect} from 'react-redux';
+import * as actions from '../../store/actions/index';
+
 
 class ShopDetail extends Component {
   state = {
@@ -50,6 +54,17 @@ class ShopDetail extends Component {
   };
 
 
+  componentDidMount() {
+    console.log('componentDidMount called twice', this.props.match.params.id);
+    this.props.onGetShop(this.props.match.params.id);
+
+  }
+  // shouldComponentUpdate(nextProps, nextState, nextContext){
+  //   console.log(nextProps.storeid!==this.props.storeid);
+  //
+  //   return false;
+  // }
+
   render() {
     const {theme} = this.props;
     const {activeStep, tutorialSteps} = this.state;
@@ -59,7 +74,7 @@ class ShopDetail extends Component {
     return (
         <Grid container spacing={24}>
           <Grid item xs={6}>
-            <img src={tutorialSteps[activeStep].imgPath} style={{width:'100%'}}/>
+            <img src={tutorialSteps[activeStep].imgPath} style={{width: '100%'}}/>
             <MobileStepper
                 steps={maxSteps}
                 position="static"
@@ -90,4 +105,20 @@ class ShopDetail extends Component {
   }
 }
 
-export default withStyles(null, { withTheme: true })(ShopDetail);
+const mapStateToProps = state => {
+  return {
+    loading: state.shop.loading,
+    error: state.shop.error,
+    shop: state.shop.shop,
+    imgsite: state.shop.imgsite,
+    storeid:state.shop.storeid
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onGetShop: (id) => dispatch(actions.getShop(id))
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(null, {withTheme: true})(ShopDetail));
